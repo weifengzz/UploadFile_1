@@ -24,6 +24,7 @@ import java.io.File;
 public class MainActivity extends AppCompatActivity {
     private TextView tv1 = null;//上传的文件地址
     private TextView tv2 = null;//上传的文件名称
+    private TextView tv3 = null;//上传是否成功提示
     private Button btn = null;//上传按钮
     private ImageView img = null;//图片
     private  String filePath="/data/data/com.lhgj.wfz.uploadfiles/";//手机中文件存储的位置
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         public void handleMessage(android.os.Message msg) {
             String string = (String) msg.obj;
             Toast.makeText(MainActivity.this, string, Toast.LENGTH_LONG).show();;
+            tv3.setText(string);
         };
     };
 
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private void initView(){
         tv1 = (TextView) findViewById(R.id.tv1);
         tv2 = (TextView) findViewById(R.id.tv2);
+        tv3 = (TextView) findViewById(R.id.tv3);
         btn = (Button) findViewById(R.id.btn);
         img = (ImageView) findViewById(R.id.iv);
 
@@ -66,7 +69,9 @@ public class MainActivity extends AppCompatActivity {
 
         //设置显示的文本
         tv1.setText("文件位置：" + filePath);
-        tv2.setText("文件名称"+fileName);
+        tv2.setText("文件名称" + fileName);
+
+        btn.setOnClickListener(new BtnOnclickListener());
     }
 
     /**
