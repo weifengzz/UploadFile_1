@@ -17,13 +17,13 @@ public class QueryUploadUtil {
         this.base64string = base64str;
     }
     // 需要实现Callable的Call方法
-    public String call(String wsdl,String url) throws Exception {
+    public String call(String wsdl,String url,String methodName) throws Exception {
         String str = "上传失败";
         // TODO Auto-generated method stub
         try {
             //创建SoapObject对象，并指定WebService的命名空间和调用的方法名
             SoapObject rpc = new SoapObject("http://tempuri.org/",
-                    "FileUploadByBase64String");
+                    methodName);
             //设置WebService方法的参数
             rpc.addProperty("base64string", base64string);
             rpc.addProperty("fileName1", filename);
