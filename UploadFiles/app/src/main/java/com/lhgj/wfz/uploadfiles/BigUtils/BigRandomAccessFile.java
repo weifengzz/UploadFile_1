@@ -73,5 +73,4 @@ public class BigRandomAccessFile implements Serializable {
         }
         return length;
     }
-
 }

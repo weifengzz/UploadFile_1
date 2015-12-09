@@ -1,30 +1,22 @@
 package com.lhgj.wfz.uploadfiles;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lhgj.wfz.uploadfiles.BigUtils.BigBase64Util;
 import com.lhgj.wfz.uploadfiles.BigUtils.BigRandomAccessFile;
-import com.lhgj.wfz.uploadfiles.BigUtils.FileAccessI;
 import com.lhgj.wfz.uploadfiles.utils.Base64Util;
 import com.lhgj.wfz.uploadfiles.utils.Fileutil;
 import com.lhgj.wfz.uploadfiles.utils.QueryUploadUtil;
-
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
