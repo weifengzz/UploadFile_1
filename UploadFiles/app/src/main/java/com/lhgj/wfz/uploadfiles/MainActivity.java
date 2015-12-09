@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -84,7 +85,20 @@ public class MainActivity extends AppCompatActivity {
         tv1.setText("文件位置：" + filePath);
         tv2.setText("文件名称" + fileName);
 
-
+        //进度条
+        progressDialog = new ProgressDialog(MainActivity.this);
+        btn.setOnClickListener(new BtnOnclickListener());
+        bigBtn.setOnClickListener(new BtnOnclickListener());
+        //设置标题
+        progressDialog.setTitle("文件上传");
+        //设置最大进度
+        progressDialog.setMax(100);
+        //设置显示的信息
+        progressDialog.setMessage("文件正上传...");
+        //设置是否可以点击
+        progressDialog.setCancelable(false);
+        //设置ProgressBar的样式
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
     }
 
     /**
@@ -134,26 +148,12 @@ public class MainActivity extends AppCompatActivity {
      * 上传大文件
      */
     public void upBigFile() {
-        //进度条
-        progressDialog = new ProgressDialog(MainActivity.this);
-        btn.setOnClickListener(new BtnOnclickListener());
-        bigBtn.setOnClickListener(new BtnOnclickListener());
-        //设置标题
-        progressDialog.setTitle("文件上传");
-        //设置最大进度
-        progressDialog.setMax(100);
-        //设置显示的信息
-        progressDialog.setMessage("文件正上传...");
-        //设置是否可以点击
-        progressDialog.setCancelable(false);
-        //设置ProgressBar的样式
-        progressDialog
-                .setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.show();//显示进度条
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
+
                     BigRandomAccessFile bigRandomAccessFile = new BigRandomAccessFile(filePath + bigFileName, 0);
                     long startPos = 0L;
                     Long length = bigRandomAccessFile.getFileLength();//得到文件的长度
@@ -164,9 +164,7 @@ public class MainActivity extends AppCompatActivity {
                     String vedioFileName = fileName; //分配一个文件名
                     long nStart = startPos;//开始读的位置
                     while (nStart < length) {//当开始都的位置比长度小的时候
-
-                        Toast.makeText(MainActivity.this,""+(int) (nStart/length*100),Toast.LENGTH_LONG).show();
-                        progressDialog.setProgress((int) (nStart/length*100));//设置progressDialog的进度
+                        progressDialog.setProgress((int) ((nStart/(float)length)*100));//设置progressDialog的进度
 
                         detail = bigRandomAccessFile.getContent(startPos,mBufferSize);//开始读取文件
                         nRead = detail.length;//读取的文件的长度
