@@ -38,14 +38,14 @@ public class BigRandomAccessFile implements Serializable {
 
     /**
      * 读取文件
-     * 每次读取102400字节
+     * @param length 每次读取字节数
      */
-    public synchronized Detail getContent(long nStart) {
+    public synchronized Detail getContent(long nStart,int length) {
         Detail detail = new Detail();
-        detail.b = new byte[102400];
+        detail.b = new byte[length];
         try {
             randomAccessFile.seek(nStart);
-            detail.length = randomAccessFile.read(detail.b);
+            detail.length = randomAccessFile.read(detail.b);//读了多长的数据
         } catch (IOException e) {
             e.printStackTrace();
         }
